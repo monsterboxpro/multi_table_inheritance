@@ -2,8 +2,8 @@ module MultiTableInheritance
   module ActiveRecord
     def multi_table_inheritance(opts = {})
       set_table_name(name.underscore.pluralize)
-      base_class.send(:extend, MultiTableInheritance::ActiveRecord::ClassMethods)
-      base_class.send(:include, MultiTableInheritance::ActiveRecord::InstanceMethods)
+      base_class.send :extend , MultiTableInheritance::ActiveRecord::ClassMethods
+      base_class.send :include, MultiTableInheritance::ActiveRecord::InstanceMethods
       base_class.multi_table_inheritance_opts(self, opts)
     end
 
@@ -16,7 +16,7 @@ module MultiTableInheritance
           @multi_table_inheritance_opts[sub_class][opt]
         end
       end
-      
+
       def default_select(qualified)
         if qualified
           "#{quoted_table_name}.*, #{quoted_table_name}.tableoid"
@@ -29,7 +29,7 @@ module MultiTableInheritance
         sql = super(options)
         sql.sub(' *', ' *, tableoid').sub(/(\w+\.)\*/, '\1.*, \1.tableoid')
       end
-      
+
       def instantiate(record)
         record_class = oid_to_class(record['tableoid'])
         if record_class != self

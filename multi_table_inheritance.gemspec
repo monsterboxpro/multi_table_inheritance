@@ -1,3 +1,6 @@
+lib = File.expand_path('../lib', __FILE__)
+$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
+
 Gem::Specification.new do |s|
   s.name = %q{multi_table_inheritance}
   s.version = "0.1.0"
@@ -12,16 +15,10 @@ Gem::Specification.new do |s|
   s.homepage = %q{http://github.com/ninjudd/multi_table_inheritance}
   s.rdoc_options = ["--inline-source", "--charset=UTF-8"]
   s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.2.0}
+
   s.summary = %q{Add multi-table inheritance support to Rails using Postgres inheritance}
 
-  if s.respond_to? :specification_version then
-    current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
-    s.specification_version = 2
-
-    if current_version >= 3 then
-    else
-    end
-  else
-  end
+  s.add_dependency "railties", ">= 3.2.0", "< 5.0"
+  s.add_development_dependency "bundler", "~> 1.5"
+  s.add_development_dependency "rake"
 end
